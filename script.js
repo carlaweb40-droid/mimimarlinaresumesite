@@ -271,8 +271,13 @@ function renderCertifications() {
   el.innerHTML = CERTIFICATIONS.map(cert => `
     <article class="cert-card">
       <a class="cert-preview" href="${cert.file}" target="_blank" rel="noopener" aria-label="Open ${cert.name} certificate">
-        <span>Certificate Preview</span>
-        <small>${cert.file}</small>
+        <img src="${cert.file}" alt="" class="cert-preview-img"
+             style="display:none;"
+             onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+        <span class="cert-preview-placeholder">
+          <span>Certificate Preview</span>
+          <small>${cert.file}</small>
+        </span>
       </a>
       <div class="cert-body">
         <h3>${cert.name}</h3>
@@ -316,11 +321,16 @@ function renderTravelGallery() {
   const el = document.getElementById("beyond-gallery");
   if (!el) return;
   el.innerHTML = TRAVEL_GALLERY.map(photo => `
-    <div class="travel-photo">
-      <span>Travel Photo</span>
-      <small>${photo.file}</small>
-      <em>${photo.caption}</em>
-    </div>
+    <figure class="travel-photo">
+      <img src="${photo.file}" alt="${photo.caption}" class="travel-photo-img"
+           style="display:none;"
+           onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+      <span class="travel-photo-placeholder">
+        <span>Travel Photo</span>
+        <small>${photo.file}</small>
+        <em>${photo.caption}</em>
+      </span>
+    </figure>
   `).join("");
 }
 
@@ -339,6 +349,41 @@ function renderLifeOutsideSales() {
   const el = document.getElementById("life-list");
   if (!el) return;
   el.innerHTML = LIFE_OUTSIDE_SALES.map(item => `<li>${item}</li>`).join("");
+}
+
+/* =====================================================
+   CONTACT FORM (Netlify Forms — AJAX submit, no reload)
+   ===================================================== */
+
+function encodeFormData(formEl) {
+  return new URLSearchParams(new FormData(formEl)).toString();
+}
+
+function initContactForm() {
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  if (!form || !status) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    status.textContent = "Sending...";
+    status.className = "form-status";
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encodeFormData(form),
+    })
+      .then(() => {
+        status.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
+        status.className = "form-status success";
+        form.reset();
+      })
+      .catch(() => {
+        status.textContent = "Something went wrong. Please try emailing me directly instead.";
+        status.className = "form-status error";
+      });
+  });
 }
 
 /* =====================================================
@@ -379,4 +424,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderLessons();
   renderLifeOutsideSales();
   initMobileNav();
+  initContactForm();
 });
