@@ -53,12 +53,13 @@ const EXPERIENCE = [
     dates: "Jan 2021 – Dec 2022",
     location: null,
     highlights: [
-      "Client acquisition and client communication.",
-      "Customer onboarding and follow-up.",
-      "Advertising copy and marketing campaigns.",
-      "Product education and customer relationship management."
+      "Taught and coached more than 300 students, guiding them through high-ticket sales and closing techniques.",
+      "Closed high-ticket offers up to $10,000 per student.",
+      "Achieved a highest recorded revenue of $50,000.",
+      "Led client acquisition, onboarding and follow-up communication.",
+      "Produced advertising copy and marketing campaigns; managed customer relationships and product education."
     ],
-    tag: null
+    tag: "High-Ticket Sales"
   },
   {
     role: "Teaching Lecturer",
@@ -91,7 +92,8 @@ const TOOLKIT = [
     category: "Sales Development",
     items: [
       "Lead Generation", "Sales Prospecting", "Inbound Sales", "Outbound Sales",
-      "Lead Qualification", "Customer Acquisition", "Consultative Selling", "Sales Communication"
+      "Lead Qualification", "Customer Acquisition", "Consultative Selling",
+      "High-Ticket Sales", "Sales Communication"
     ]
   },
   {
