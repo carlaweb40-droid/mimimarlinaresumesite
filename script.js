@@ -128,8 +128,8 @@ const CERTIFICATIONS = [
     name: "HubSpot Inbound Sales Certification",
     org: "HubSpot Academy",
     date: "2026",
-    credentialId: "[INSERT CREDENTIAL ID]",
-    credentialUrl: "[INSERT CREDENTIAL URL]",
+    credentialId: "mfsl4bxs",
+    credentialUrl: "https://app-eu1.hubspot.com/academy/achievements/mfsl4bxs/en/1/mimi-marlina/inbound-sales-certified",
     file: "assets/certifications/hubspot-inbound-sales.pdf",
     description: "Covers modern inbound selling: building trust with buyers, qualifying leads and guiding prospects through their buying journey.",
     skills: ["Inbound Sales", "Lead Qualification", "Sales Prospecting", "Buyer Journey", "Sales Communication"]
@@ -138,8 +138,8 @@ const CERTIFICATIONS = [
     name: "HubSpot Sales Hub Software Certification",
     org: "HubSpot Academy",
     date: "2026",
-    credentialId: "[INSERT CREDENTIAL ID]",
-    credentialUrl: "[INSERT CREDENTIAL URL]",
+    credentialId: "zrhwl233",
+    credentialUrl: "https://app-eu1.hubspot.com/academy/achievements/zrhwl233/en/1/mimi-marlina/hubspot-sales-hub-software-certified",
     file: "assets/certifications/hubspot-sales-hub.pdf",
     description: "Hands-on certification in using HubSpot's Sales Hub to manage pipeline, contacts and day-to-day sales operations.",
     skills: ["HubSpot CRM", "CRM Management", "Sales Pipeline", "Sales Technology", "Sales Operations"]
@@ -148,8 +148,8 @@ const CERTIFICATIONS = [
     name: "AI Fluency: Framework & Foundations",
     org: "Anthropic",
     date: "2026",
-    credentialId: "[INSERT CREDENTIAL ID]",
-    credentialUrl: "[INSERT CREDENTIAL URL]",
+    credentialId: "cr2ff957eh4w",
+    credentialUrl: "https://verify.skilljar.com/c/cr2ff957eh4w",
     file: "assets/certifications/anthropic-ai-fluency.pdf",
     description: "Foundational certification in working effectively with generative AI tools, prompt design and evaluating AI output.",
     skills: ["AI Fluency", "Generative AI", "Prompt Engineering", "AI-Assisted Research", "AI Productivity", "AI Output Evaluation"]
