@@ -151,6 +151,7 @@ const CERTIFICATIONS = [
     credentialId: "cr2ff957eh4w",
     credentialUrl: "https://verify.skilljar.com/c/cr2ff957eh4w",
     file: "assets/certifications/anthropic-ai-fluency.pdf",
+    preview: "assets/certifications/anthropic-ai-fluency.jpg",
     description: "Foundational certification in working effectively with generative AI tools, prompt design and evaluating AI output.",
     skills: ["AI Fluency", "Generative AI", "Prompt Engineering", "AI-Assisted Research", "AI Productivity", "AI Output Evaluation"]
   },
