@@ -153,7 +153,38 @@ const CERTIFICATIONS = [
     file: "assets/certifications/anthropic-ai-fluency.pdf",
     description: "Foundational certification in working effectively with generative AI tools, prompt design and evaluating AI output.",
     skills: ["AI Fluency", "Generative AI", "Prompt Engineering", "AI-Assisted Research", "AI Productivity", "AI Output Evaluation"]
+  },
+  {
+    name: "Ahrefs' Marketing Platform Certification",
+    org: "Ahrefs Academy",
+    date: "2026",
+    credentialId: "Exam #9498",
+    credentialUrl: "https://ahrefs.com/academy/how-to-use-ahrefs/exam/9498",
+    file: "assets/certifications/ahrefs-marketing-platform.pdf",
+    description: "Certified in using Ahrefs' marketing platform for SEO, keyword research, competitor analysis and site audits to support data-driven marketing decisions.",
+    skills: ["SEO", "Keyword Research", "Competitor Analysis", "Marketing Analytics", "Digital Marketing"]
+  },
+  {
+    name: "Off-Page SEO and AI Search Essentials",
+    org: "Semrush Academy",
+    date: "2026",
+    credentialId: "93634521c8",
+    credentialUrl: "https://www.semrush.com/academy/",
+    file: "assets/certifications/semrush-offpage-seo-ai-search.pdf",
+    description: "Covers off-page SEO fundamentals and how AI-driven search is reshaping visibility, backlinks and content discovery.",
+    skills: ["Off-Page SEO", "AI Search", "Link Building", "Content Discovery", "Digital Marketing"]
   }
+];
+
+/* ============ 4b. ADD-A-CERTIFICATION PLACEHOLDER SLOTS ============ */
+/* These render as empty, dashed "reserved" cards at the end of the
+   certifications grid so there's always a ready spot to drop in the
+   next certificate. To turn a placeholder into a real certificate,
+   move its details into the CERTIFICATIONS array above instead —
+   these placeholders are just visual reserved slots, not data cards.
+   Adjust the count by adding/removing items here.                   */
+const CERTIFICATION_PLACEHOLDERS = [
+  { note: "Reserved for next certification" }
 ];
 
 /* ============ 5. PORTFOLIO / CASE STUDIES ============ */
@@ -270,7 +301,8 @@ function renderToolkit() {
 function renderCertifications() {
   const el = document.getElementById("cert-grid");
   if (!el) return;
-  el.innerHTML = CERTIFICATIONS.map(cert => `
+
+  const certCards = CERTIFICATIONS.map(cert => `
     <article class="cert-card">
       <a class="cert-preview" href="${cert.file}" target="_blank" rel="noopener" aria-label="Open ${cert.name} certificate">
         <img src="${cert.file}" alt="" class="cert-preview-img"
@@ -294,6 +326,21 @@ function renderCertifications() {
       </div>
     </article>
   `).join("");
+
+  const placeholderCards = CERTIFICATION_PLACEHOLDERS.map(slot => `
+    <article class="cert-card cert-card-placeholder">
+      <div class="cert-placeholder-body">
+        <span class="cert-placeholder-plus" aria-hidden="true">+</span>
+        <p class="cert-placeholder-note">${slot.note}</p>
+        <p class="cert-placeholder-instructions">
+          Add a new entry to <code>CERTIFICATIONS</code> in <code>script.js</code>
+          and upload the file to <code>/assets/certifications/</code>.
+        </p>
+      </div>
+    </article>
+  `).join("");
+
+  el.innerHTML = certCards + placeholderCards;
 }
 
 function renderCaseStudies() {
@@ -354,6 +401,62 @@ function renderLifeOutsideSales() {
 }
 
 /* =====================================================
+   TRAFFIC SOURCE TRACKING (UTM capture for Meta Ads etc.)
+   -----------------------------------------------------
+   Reads utm_source / utm_medium / utm_campaign / utm_term /
+   utm_content from the URL a visitor lands on (e.g. a Meta Ads
+   link like ?utm_source=facebook&utm_medium=paid&utm_campaign=...)
+   and remembers it for the length of the browser session, even if
+   they browse a few pages before submitting the contact form.
+   Values are written into the hidden fields on the contact form,
+   so every Netlify form submission records where that lead came
+   from. Works alongside the Meta Pixel in index.html.            */
+
+const UTM_STORAGE_KEY = "mm_traffic_source";
+const UTM_PARAMS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+function captureTrafficSource() {
+  const params = new URLSearchParams(window.location.search);
+  const hasNewUtm = UTM_PARAMS.some(p => params.has(p));
+
+  let stored = {};
+  try {
+    stored = JSON.parse(sessionStorage.getItem(UTM_STORAGE_KEY) || "{}");
+  } catch (err) {
+    stored = {};
+  }
+
+  if (hasNewUtm) {
+    // A fresh campaign link always overwrites what was stored before.
+    stored = {};
+    UTM_PARAMS.forEach(p => {
+      if (params.get(p)) stored[p] = params.get(p);
+    });
+    stored.landing_page = window.location.pathname + window.location.search;
+    try {
+      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(stored));
+    } catch (err) { /* sessionStorage unavailable — safe to ignore */ }
+  }
+
+  return stored;
+}
+
+function applyTrafficSourceToForm(source) {
+  const map = {
+    utm_source: "cf-utm-source",
+    utm_medium: "cf-utm-medium",
+    utm_campaign: "cf-utm-campaign",
+    utm_term: "cf-utm-term",
+    utm_content: "cf-utm-content",
+    landing_page: "cf-landing-page"
+  };
+  Object.keys(map).forEach(key => {
+    const field = document.getElementById(map[key]);
+    if (field && source[key]) field.value = source[key];
+  });
+}
+
+/* =====================================================
    CONTACT FORM (Netlify Forms — AJAX submit, no reload)
    ===================================================== */
 
@@ -365,6 +468,8 @@ function initContactForm() {
   const form = document.getElementById("contact-form");
   const status = document.getElementById("form-status");
   if (!form || !status) return;
+
+  applyTrafficSourceToForm(captureTrafficSource());
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -380,6 +485,11 @@ function initContactForm() {
         status.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
         status.className = "form-status success";
         form.reset();
+        // Notify Meta Pixel (if configured in index.html) that a lead came in,
+        // so Meta Ads can attribute this conversion to the originating campaign.
+        if (typeof fbq === "function") {
+          fbq("track", "Lead");
+        }
       })
       .catch(() => {
         status.textContent = "Something went wrong. Please try emailing me directly instead.";

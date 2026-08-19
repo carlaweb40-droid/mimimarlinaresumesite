@@ -24,6 +24,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
+
+<!-- ================= META (FACEBOOK/INSTAGRAM) PIXEL ================= -->
+<!-- To activate: create a Pixel in Meta Events Manager (business.facebook.com/events_manager),
+     copy its numeric ID, and replace YOUR_PIXEL_ID in BOTH places below (script + noscript img).
+     Once live, this tracks page visits automatically and a "Lead" event fires when the
+     contact form is submitted (see script.js -> initContactForm), so Meta Ads can attribute
+     conversions back to the campaign/ad that sent the visitor. -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'YOUR_PIXEL_ID');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+/></noscript>
+<!-- ================= END META PIXEL ================= -->
 </head>
 <body>
 
@@ -109,7 +132,7 @@
         <span class="proof-label">Sales Experience</span>
       </div>
       <div class="proof-item">
-        <span class="proof-number">3</span>
+        <span class="proof-number">5</span>
         <span class="proof-label">Relevant Certifications</span>
       </div>
     </div>
@@ -152,7 +175,7 @@
           <li><strong>Lead generation</strong> &mdash; hands-on experience with inbound and outbound acquisition.</li>
           <li><strong>Adaptability</strong> &mdash; developed across sales, marketing, teaching and remote work.</li>
           <li><strong>Remote working experience</strong> &mdash; every role listed here has been performed remotely.</li>
-          <li><strong>Continuous learning</strong> &mdash; recently formalized through HubSpot and Anthropic certifications.</li>
+          <li><strong>Continuous learning</strong> &mdash; recently formalized through HubSpot, Anthropic, Ahrefs and Semrush certifications.</li>
           <li><strong>AI-assisted productivity</strong> &mdash; applying modern AI tools to research, communication and workflow.</li>
         </ul>
       </div>
@@ -205,8 +228,9 @@
       <p class="section-eyebrow">Certifications</p>
       <h2>Formal training behind the hands-on experience.</h2>
       <p class="lead">
-        Certificates open as PDF/image previews. To add or update a certificate,
-        see the <a href="#footer-guide">editing guide</a> in the footer of this page.
+        Certificates open as PDF/image previews. The dashed card is a reserved slot
+        for the next certification &mdash; to add or update a certificate, see the
+        <a href="#footer-guide">editing guide</a> in the footer of this page.
       </p>
 
       <div class="cert-grid" id="cert-grid">
@@ -294,6 +318,16 @@
         <p class="hp-field">
           <label>Don't fill this out if you're human: <input name="bot-field"></label>
         </p>
+
+        <!-- Traffic-source attribution fields — auto-filled by script.js (captureTrafficSource)
+             from the visitor's URL (utm_source, utm_medium, utm_campaign, etc.) so each
+             Netlify form submission shows where that lead came from (e.g. Meta Ads, TikTok). -->
+        <input type="hidden" name="utm_source" id="cf-utm-source">
+        <input type="hidden" name="utm_medium" id="cf-utm-medium">
+        <input type="hidden" name="utm_campaign" id="cf-utm-campaign">
+        <input type="hidden" name="utm_term" id="cf-utm-term">
+        <input type="hidden" name="utm_content" id="cf-utm-content">
+        <input type="hidden" name="landing_page" id="cf-landing-page">
 
         <div class="form-row">
           <label for="cf-name">Name</label>
