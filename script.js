@@ -161,6 +161,7 @@ const CERTIFICATIONS = [
     credentialId: "Exam #9498",
     credentialUrl: "https://ahrefs.com/academy/how-to-use-ahrefs/exam/9498",
     file: "assets/certifications/ahrefs-marketing-platform.pdf",
+    preview: "assets/certifications/ahrefs-marketing-platform.jpg",
     description: "Certified in using Ahrefs' marketing platform for SEO, keyword research, competitor analysis and site audits to support data-driven marketing decisions.",
     skills: ["SEO", "Keyword Research", "Competitor Analysis", "Marketing Analytics", "Digital Marketing"]
   },
@@ -169,8 +170,11 @@ const CERTIFICATIONS = [
     org: "Semrush Academy",
     date: "2026",
     credentialId: "93634521c8",
-    credentialUrl: "https://www.semrush.com/academy/",
+    // Semrush certificates don't print a public verification URL (only a
+    // completion ID), so "View credential" opens the certificate file itself.
+    credentialUrl: "assets/certifications/semrush-offpage-seo-ai-search.pdf",
     file: "assets/certifications/semrush-offpage-seo-ai-search.pdf",
+    preview: "assets/certifications/semrush-offpage-seo-ai-search.jpg",
     description: "Covers off-page SEO fundamentals and how AI-driven search is reshaping visibility, backlinks and content discovery.",
     skills: ["Off-Page SEO", "AI Search", "Link Building", "Content Discovery", "Digital Marketing"]
   }
@@ -305,7 +309,7 @@ function renderCertifications() {
   const certCards = CERTIFICATIONS.map(cert => `
     <article class="cert-card">
       <a class="cert-preview" href="${cert.file}" target="_blank" rel="noopener" aria-label="Open ${cert.name} certificate">
-        <img src="${cert.file}" alt="" class="cert-preview-img"
+        <img src="${cert.preview || cert.file}" alt="" class="cert-preview-img"
              style="display:none;"
              onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
         <span class="cert-preview-placeholder">
