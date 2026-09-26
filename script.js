@@ -125,6 +125,17 @@ const TOOLKIT = [
    /assets/certifications/                                   */
 const CERTIFICATIONS = [
   {
+    name: "IBM Financial Planning and Analysis (FP&A) with AI Skills",
+    org: "IBM",
+    date: "2026",
+    credentialId: "8X0LCI6NMZ9W",
+    credentialUrl: "https://coursera.org/verify/professional-cert/8X0LCI6NMZ9W",
+    file: "assets/certifications/ibm-fpa-with-ai-skills.pdf",
+    preview: "assets/certifications/ibm-fpa-with-ai-skills.jpg",
+    description: "7-course IBM Professional Certificate covering FP&A fundamentals, driver-based budgeting, variance analysis and forecasting, scenario design and executive storytelling, using IBM Planning Analytics and a watsonx-powered assistant throughout.",
+    skills: ["FP&A", "Financial Modeling", "Variance Analysis", "Forecasting", "Scenario Planning", "Generative AI", "Executive Storytelling"]
+  },
+  {
     name: "HubSpot Inbound Sales Certification",
     org: "HubSpot Academy",
     date: "2026",
